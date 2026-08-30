@@ -1,0 +1,15 @@
+# 依赖目录（体积大，可随时通过 npm install 重新安装）
+node_modules/
+
+# 构建产物
+dist/
+
+# 日志文件
+*.log
+npm-debug.log*
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
