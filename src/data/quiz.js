@@ -1109,5 +1109,154 @@ export const quizQuestions = [
       '2. 子组件需要"改"时，通过 defineEmits 抛出自定义事件并携带数据（意图上行）；\n' +
       '3. 父组件在事件回调里修改自己的数据源，新数据再经 props 流回子组件，视图同步更新；\n' +
       '4. 单向数据流让数据变化始终可追踪（只有父组件能改源头），是可维护性的关键。'
+  },
+
+  /* ==================== Spring Boot 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: 'Spring Boot 相比传统 Spring 最大的特点是？',
+    options: [
+      '只能开发桌面应用',
+      '约定优于配置 + 自动装配 + 内嵌服务器，大幅简化开发与部署',
+      '不支持数据库操作',
+      '必须使用 XML 配置所有 Bean'
+    ],
+    answer: 1,
+    explanation: 'Spring Boot 用自动装配和起步依赖省掉大量配置，内嵌 Tomcat 让 java -jar 一条命令就能跑，这正是它取代传统 Spring 部署方式的原因。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '@SpringBootApplication 注解等价于下面哪组注解的组合？',
+    options: [
+      '@Override + @Test + @Service',
+      '@Configuration + @EnableAutoConfiguration + @ComponentScan',
+      '@Entity + @Table + @Id',
+      '@GetMapping + @PostMapping + @PutMapping'
+    ],
+    answer: 1,
+    explanation: '它组合了配置类、开启自动装配、组件扫描三大注解，这就是为什么启动类要放在根包——组件扫描只扫它所在包及子包。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: 'Spring Boot 3.x 要求的最低 JDK 版本是？',
+    options: ['JDK 8', 'JDK 11', 'JDK 17', 'JDK 21'],
+    answer: 2,
+    explanation: 'Spring Boot 3.x 基于 Spring Framework 6，最低要求 JDK 17。还在用 JDK 8 的老项目一般停留在 Spring Boot 2.7.x。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: 'RESTful 风格中，"修改用户"通常使用哪种方法与 URL？',
+    options: ['POST /users/create', 'GET /users/update?id=1', 'PUT /users/{id}', 'DELETE /users/{id}'],
+    answer: 2,
+    explanation: 'RESTful 用 URL 表示资源、HTTP 方法表示操作：GET 查、POST 增、PUT 改、DELETE 删，修改就是 PUT /users/{id}。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '前端 POST 一个 JSON 请求体，后端应该用哪个注解接收？',
+    options: ['@RequestParam', '@PathVariable', '@RequestBody', '@RequestHeader'],
+    answer: 2,
+    explanation: '@RequestBody 把请求体里的 JSON 自动反序列化成 Java 对象；@RequestParam 取查询串，@PathVariable 取路径占位符，@RequestHeader 取请求头。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '关于依赖注入，Spring 官方推荐的方式是？',
+    options: [
+      '字段注入 @Autowired',
+      '构造器注入（依赖可加 final，依赖关系明确、便于测试）',
+      '直接 new 一个新对象',
+      '在方法里用 ApplicationContext.getBean() 现取'
+    ],
+    answer: 1,
+    explanation: '构造器注入的字段可以声明为 final 保证不可变，依赖一目了然，单测时可以直接传入 Mock 对象。IDEA 对字段注入会给出黄色警告。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '关于 @Transactional 事务，下列说法正确的是？',
+    options: [
+      '任何异常都会自动回滚',
+      '默认只在 RuntimeException 及其子类抛出时回滚',
+      '同一个类里 A 方法调用本类的 B 方法，B 上的事务注解一定生效',
+      '事务方法里调用外部接口耗时越久越好'
+    ],
+    answer: 1,
+    explanation: '默认只回滚 RuntimeException（受检异常需 rollbackFor 声明）；同类 this 自调用会绕过代理导致事务失效；事务方法里写耗时操作会长期占用数据库连接。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: 'Spring Data JPA 中，方法 findByNameContaining(String kw) 会自动生成什么 SQL 条件？',
+    options: [
+      'name = ?',
+      'name LIKE %?%',
+      'name IS NULL',
+      'age > ?'
+    ],
+    answer: 1,
+    explanation: '方法名即查询：Containing 翻译成 LIKE %参数%，这是 Spring Data JPA "接口即实现"的核心能力。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '关于 JWT，下列说法正确的是？',
+    options: [
+      'Payload 部分是加密的，可以放心存密码',
+      'Payload 只是 Base64 编码，任何人都能解开查看，不能放敏感明文',
+      'JWT 必须存在服务端的 Session 里',
+      'JWT 永远不会过期'
+    ],
+    answer: 1,
+    explanation: 'JWT 的三段中前两段（头部、载荷）只是 Base64 编码，签名只保证不被篡改、不保证保密，所以密码等敏感信息绝不能放进 Payload。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '用户密码在数据库中的正确存储方式是？',
+    options: [
+      '明文存储，方便找回',
+      'MD5 一次哈希即可，绝对安全',
+      '使用 BCrypt 加盐哈希存储，登录时用 matches 比对',
+      'Base64 编码存储'
+    ],
+    answer: 2,
+    explanation: 'BCrypt 自带随机盐且故意计算很慢，能有效抵御彩虹表与暴力破解；MD5 太快已被大规模破解；明文和 Base64 都是严重安全事故。'
+  },
+  {
+    type: 'choice',
+    category: 'springboot',
+    question: '@Cacheable 注解的作用是？',
+    options: [
+      '每次都执行方法体并强制刷新缓存',
+      '先查缓存，命中则直接返回，未命中才执行方法并把结果缓存',
+      '执行方法后立即删除缓存',
+      '只能搭配 MySQL 使用'
+    ],
+    answer: 1,
+    explanation: '@Cacheable 是"读缓存"语义：命中直接返回不执行方法；@CachePut 是执行并刷新；@CacheEvict 是清缓存。三者配合使用。'
+  },
+
+  /* ==================== Spring Boot 主观题 ==================== */
+  {
+    type: 'subjective',
+    category: 'springboot',
+    question: '请以"图书管理 API"为例，说明 Spring Boot 项目的三层架构中各层的职责，并说明 @Transactional 事务与 Spring Cache 缓存在其中如何配合使用。',
+    reference:
+      '三层架构与职责：\n' +
+      '1. Controller（@RestController）：接收 HTTP 请求、做参数校验（@Valid）、调用 Service、用统一结构 Result 返回，不写业务逻辑；\n' +
+      '2. Service（@Service）：核心业务规则，如查重、组合多个数据操作；事务边界加在这里（@Transactional）；\n' +
+      '3. Repository（继承 JpaRepository）：只负责数据库读写，常规 CRUD 由框架自动生成。\n' +
+      '事务配合：\n' +
+      '一个业务方法涉及多条 SQL 时加 @Transactional，保证要么全成功要么全回滚（默认只回滚 RuntimeException）；\n' +
+      '注意同类自调用会导致事务失效，耗时操作不要放在事务方法里。\n' +
+      '缓存配合：\n' +
+      '查询方法加 @Cacheable 让结果进 Redis，减少数据库压力；\n' +
+      '新增/修改/删除方法加 @CacheEvict 及时失效旧缓存，遵循"先更新数据库、再删缓存"，避免用户读到脏数据；\n' +
+      '整体流程：请求 → Controller 校验参数 → Service 业务 + 事务 + 缓存注解 → Repository 读写 PostgreSQL → 逐层返回 → 统一 JSON 响应。'
   }
 ]

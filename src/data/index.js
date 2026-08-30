@@ -7,12 +7,13 @@ import htmlData from './html.js'
 import cssData from './css.js'
 import jsData from './js.js'
 import javaData from './java.js'
+import springbootData from './springboot.js'
 import pythonData from './python.js'
 import pgData from './pg.js'
 import vueData from './vue.js'
 
 // 所有教学分类
-export const categories = [htmlData, cssData, jsData, vueData, javaData, pythonData, pgData]
+export const categories = [htmlData, cssData, jsData, vueData, javaData, springbootData, pythonData, pgData]
 
 // ------------------------------------------------------------
 // 构建「课时 id -> 课时信息」的扁平索引，方便路由快速查找
