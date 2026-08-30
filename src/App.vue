@@ -20,6 +20,7 @@
         <RouterLink to="/category/js">JavaScript</RouterLink>
         <RouterLink to="/category/java">Java</RouterLink>
         <RouterLink to="/category/python">Python</RouterLink>
+        <RouterLink to="/category/pg">PostgreSQL</RouterLink>
         <RouterLink to="/quiz">综合测试</RouterLink>
       </nav>
     </div>
@@ -32,6 +33,6 @@
 
   <!-- 页脚 -->
   <footer class="site-footer">
-    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Java / Python
+    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Java / Python / PostgreSQL
   </footer>
 </template>

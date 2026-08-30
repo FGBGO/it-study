@@ -764,6 +764,108 @@ export const quizQuestions = [
     explanation: '被别人 import 时 __name__ 是模块名而不是 "__main__"，这句判断可以避免导入时执行主逻辑。'
   },
 
+  /* ==================== PostgreSQL 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'pg',
+    question: 'SQL 按功能分类，SELECT 属于哪一类？',
+    options: ['DDL 数据定义', 'DML 数据操纵', 'DQL 数据查询', 'DCL 数据控制'],
+    answer: 2,
+    explanation: 'SELECT 是数据查询语言（DQL）；CREATE/ALTER/DROP 是 DDL，INSERT/UPDATE/DELETE 是 DML，GRANT/REVOKE 是 DCL。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '查询年龄大于 18 且城市为深圳的学生，正确的 WHERE 写法是？',
+    options: [
+      "WHERE age > 18 AND city = '深圳'",
+      "WHERE age > 18, city = '深圳'",
+      "WHERE age > 18 OR city = '深圳'",
+      'WHERE age > 18 AND city == "深圳"'
+    ],
+    answer: 0,
+    explanation: '条件之间用 AND/OR 连接；SQL 的文本用单引号、相等判断是一个等号。OR 会把"年龄大"和"在深圳"的都查出来，逻辑就错了。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '判断某列是否为 NULL，正确的写法是？',
+    options: ['WHERE col = NULL', 'WHERE col == NULL', 'WHERE col IS NULL', 'WHERE col LIKE NULL'],
+    answer: 2,
+    explanation: 'NULL 与任何值（包括它自己）的 = 比较结果都不是 true，必须用 IS NULL / IS NOT NULL。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: 'SELECT DISTINCT city FROM students 的作用是？',
+    options: ['统计学生总数', '按城市排序', '去掉重复的城市，返回不重复的城市列表', '只查第一个城市'],
+    answer: 2,
+    explanation: 'DISTINCT 对查询结果去重；多列 DISTINCT 表示"这几列的组合完全相同"才算重复。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '按年龄降序取第 3 页数据（每页 10 条），正确的写法是？',
+    options: [
+      'ORDER BY age DESC LIMIT 10 OFFSET 20',
+      'ORDER BY age DESC LIMIT 30',
+      'LIMIT 10 OFFSET 20 ORDER BY age DESC',
+      'TOP 30 ORDER BY age'
+    ],
+    answer: 0,
+    explanation: '先 ORDER BY 排序再 LIMIT/OFFSET；第 n 页每页 m 条的 OFFSET 是 (n-1)*m，第 3 页跳过前 20 条。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '关于 GROUP BY，下列说法正确的是？',
+    options: [
+      'SELECT 里的列可以随意写，不受 GROUP BY 限制',
+      'SELECT 里出现的列必须在 GROUP BY 中，或是聚合函数',
+      'WHERE 里可以使用聚合函数过滤分组结果',
+      'GROUP BY 只能按一个字段分组'
+    ],
+    answer: 1,
+    explanation: '分组后每一组只出一行，非聚合列必须出现在 GROUP BY 里；过滤分组结果用 HAVING 不是 WHERE；可以多字段分组。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '想保留左边表的所有行、即使右边没有匹配（匹配不上的填 NULL），应该用？',
+    options: ['INNER JOIN', 'LEFT JOIN', 'CROSS JOIN', 'SELF JOIN'],
+    answer: 1,
+    explanation: 'LEFT JOIN 以左表为准全保留；INNER JOIN 只留两边都匹配的；CROSS JOIN 是笛卡尔积。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '存储金额字段，最合适的类型是？',
+    options: ['REAL 浮点', 'DOUBLE PRECISION', 'NUMERIC(10,2) 精确小数', 'INTEGER'],
+    answer: 2,
+    explanation: '浮点类型有精度误差（0.1+0.2≠0.3），金额必须用精确小数 NUMERIC；INTEGER 存不了小数。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '转账场景"扣钱 + 加钱"必须同生共死，靠什么机制保证？',
+    options: ['索引 INDEX', '事务 TRANSACTION', '视图 VIEW', '序列 SEQUENCE'],
+    answer: 1,
+    explanation: '事务保证原子性：COMMIT 提交全部生效，ROLLBACK 全部撤销。ACID 是数据库可靠性的基石。'
+  },
+  {
+    type: 'choice',
+    category: 'pg',
+    question: '防止 SQL 注入，程序里执行带用户输入的查询，正确做法是？',
+    options: [
+      '把用户输入直接拼进 SQL 字符串',
+      '使用参数化查询（占位符 $1 / %s 传值）',
+      '先过滤掉所有单引号再拼接',
+      '用 MD5 加密用户输入后拼接'
+    ],
+    answer: 1,
+    explanation: '参数化查询让"数据"和"代码"分离，输入内容再恶意也只会被当成参数值；拼接字符串（哪怕过滤）都可能被绕过。'
+  },
+
   /* ==================== 主观题 ==================== */
   {
     type: 'subjective',
@@ -863,5 +965,17 @@ export const quizQuestions = [
       '元组：有序、不可变、允许重复。场景：坐标点 (x, y)、函数返回多个值、不应被修改的配置常量。\n' +
       '字典：键值对映射、键唯一、查询极快（3.7+ 保持插入顺序）。场景：一个学生的信息 {"name": "小明", "age": 18}，通过名字查值的场合。\n' +
       '集合：无序、不重复。场景：列表去重、求两份数据的交集/并集/差集（如共同好友）。'
+  },
+  {
+    type: 'subjective',
+    category: 'pg',
+    question: '解释 SQL 的逻辑执行顺序（FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT），并据此说明 WHERE 与 HAVING 的区别。',
+    reference:
+      '逻辑执行顺序：先 FROM 确定数据来源，WHERE 过滤原始行，GROUP BY 把行分组，\n' +
+      'HAVING 过滤分组结果，SELECT 计算输出列，ORDER BY 排序，LIMIT 截取条数。\n' +
+      'WHERE 与 HAVING 的区别：\n' +
+      '1. WHERE 在分组前执行，过滤的是"原始行"，不能使用聚合函数——因为执行到它时还没有分组，聚合结果不存在；\n' +
+      '2. HAVING 在分组后执行，过滤的是"组"，通常配合聚合函数使用（如 HAVING COUNT(*) > 3）；\n' +
+      '3. 能在 WHERE 里完成的过滤尽量放 WHERE，提前减少参与分组的数据量，性能更好。'
   }
 ]
