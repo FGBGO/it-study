@@ -22,14 +22,14 @@ const categoryCards = computed(() =>
       <h1 class="page-title">欢迎来到 IT 学习中心</h1>
       <p class="page-desc">
         这里是一套为个人学习整理的编程教程，涵盖前端三件套
-        <strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>
-        与后端语言 <strong>Java</strong>。每个知识点都配有讲解、要点总结和可复制的代码示例，
+        <strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>，
+        以及后端语言 <strong>Java</strong> 和 <strong>Python</strong>。
+        每个知识点都配有讲解、要点总结和可复制的代码示例，
         学完后可以通过「综合测试」检验学习成果。
       </p>
       <p class="page-desc">
-        建议按顺序学习：先掌握 <strong>HTML</strong> 搭建页面结构，
-        再学习 <strong>CSS</strong> 美化页面、<strong>JavaScript</strong> 实现交互，
-        然后进军 <strong>Java</strong> 打开后端世界的大门。
+        建议路线：先学 <strong>HTML</strong> + <strong>CSS</strong> + <strong>JavaScript</strong> 打好前端基础，
+        再选一门 <strong>Java</strong>（企业后端）或 <strong>Python</strong>（数据分析 / AI / 自动化）深入。
       </p>
     </section>
 

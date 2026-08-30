@@ -565,6 +565,205 @@ export const quizQuestions = [
     explanation: 'await 会"暂停"等待 Promise 完成，让异步代码读起来像同步代码。'
   },
 
+  /* ==================== Java 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'java',
+    question: '关于 JDK、JRE、JVM 三者关系，正确的是？',
+    options: ['JVM 包含 JDK', 'JDK 包含 JRE，JRE 包含 JVM', '三者互不相关', 'JRE 包含 JDK'],
+    answer: 1,
+    explanation: 'JDK（开发工具包）= JRE + 编译器等工具；JRE（运行环境）= JVM + 核心类库。写代码必须装 JDK。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: 'Java 程序的入口 main 方法的正确写法是？',
+    options: [
+      'public void main(String args)',
+      'static void Main()',
+      'public static void main(String[] args)',
+      'void main(String[] args)'
+    ],
+    answer: 2,
+    explanation: '固定格式：public static void main(String[] args)，一个字母都不能错，JVM 从这里开始执行。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: 'System.out.println(10 / 3) 的输出结果是？',
+    options: ['3.33', '3', '3.0', '4'],
+    answer: 1,
+    explanation: '两个整数相除只保留整数部分，结果是 3；想得到小数至少一方要是浮点数。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '声明一个 long 类型的变量并直接赋大数值，末尾需要加什么？',
+    options: ['加 L', '加 l 或不加都行', '加 D', '不需要任何后缀'],
+    answer: 0,
+    explanation: 'long 字面量结尾要加 L（推荐大写，小写 l 容易和 1 混淆）；float 则加 F。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '比较两个字符串的内容是否相等，正确的写法是？',
+    options: ['s1 == s2', 's1.equals(s2)', 's1 = s2', 'compare(s1, s2)'],
+    answer: 1,
+    explanation: '== 比较的是引用地址，equals() 才比较内容。这是 Java 最经典的易错点。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '关于方法重载（Overload），下列说法正确的是？',
+    options: [
+      '重载要求方法名和参数列表完全相同',
+      '改变返回值类型就能构成重载',
+      '重载要求方法名相同、参数列表不同，与返回值无关',
+      '重载必须发生在父子类之间'
+    ],
+    answer: 2,
+    explanation: '重载看参数（个数或类型不同），不看返回值；发生在同一个类里。重写（Override）才发生在父子类之间。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '关于构造方法，下列说法错误的是？',
+    options: [
+      '构造方法名必须与类名相同',
+      '构造方法没有返回值类型，也不能写 void',
+      '如果自己写了有参构造，无参构造会自动保留',
+      '构造方法在创建对象（new）时自动执行'
+    ],
+    answer: 2,
+    explanation: '一旦自己写了有参构造，编译器赠送的无参构造就消失了，需要时要自己补写。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '多态写法 Animal a = new Dog() 中，调用 a.eat() 时？',
+    options: [
+      '编译看左边（父类），运行看右边（实际执行子类重写的方法）',
+      '编译和运行都看右边',
+      '只能执行父类的方法体',
+      '编译和运行都看左边'
+    ],
+    answer: 0,
+    explanation: '编译期检查父类是否有该方法（没有就报错），运行时执行的是子类重写后的版本。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '关于抽象类，下列说法正确的是？',
+    options: [
+      '抽象类可以被直接 new 出来',
+      '抽象类不能有构造方法',
+      '抽象类不能被实例化，只能被继承',
+      '有抽象方法的类可以不是抽象类'
+    ],
+    answer: 2,
+    explanation: '抽象类不能 new，但有构造方法供子类 super 调用；有抽象方法的类必须是抽象类。'
+  },
+  {
+    type: 'choice',
+    category: 'java',
+    question: '需要存储一组"不允许重复"的元素，应该使用哪个集合？',
+    options: ['ArrayList', 'HashSet', 'HashMap', 'LinkedList'],
+    answer: 1,
+    explanation: 'Set 的特点是不允许重复；List 有序可重复；Map 是键值对。'
+  },
+
+  /* ==================== Python 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'python',
+    question: 'input() 函数读取到的用户输入是什么类型？',
+    options: ['整数 int', '字符串 str', '浮点数 float', '取决于用户输入的内容'],
+    answer: 1,
+    explanation: 'input() 永远返回字符串，"5" 不能直接做算术，要先 int() 转换。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '表达式 7 // 2 的结果是？',
+    options: ['3.5', '3', '4', '1'],
+    answer: 1,
+    explanation: '// 是整除（向下取整）得 3；/ 是普通除法得 3.5；% 是取余得 1。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '表达式 2 ** 10 的结果是？',
+    options: ['20', '12', '1024', '100'],
+    answer: 2,
+    explanation: '** 是幂运算符，2 的 10 次方等于 1024。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: 'Python 用什么来表示代码块的层次（代替其他语言的大括号）？',
+    options: ['大括号 {}', 'begin...end', '缩进', '分号'],
+    answer: 2,
+    explanation: '冒号后缩进（通常 4 空格）的部分属于该代码块，缩进错误会直接报错。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '列表 nums = [10, 20, 30]，nums[-1] 的值是？',
+    options: ['10', '报错', '30', '20'],
+    answer: 2,
+    explanation: '负数下标从尾部数起，-1 是最后一个元素 30，-2 是倒数第二个。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '关于元组（tuple），下列说法正确的是？',
+    options: [
+      '元组创建后可以随意增删改元素',
+      '元组是不可变序列，创建后不能修改',
+      '元组就是另一个名字的列表',
+      '元组只能存数字'
+    ],
+    answer: 1,
+    explanation: '元组是不可变的，适合存放不应被修改的数据；需要增删改就用列表。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '从字典中取值时希望"键不存在也不报错、还能给默认值"，应该用？',
+    options: ['d[key]', 'd.get(key, 默认值)', 'd.key', 'd->key'],
+    answer: 1,
+    explanation: 'd[key] 键不存在会抛 KeyError；get() 不存在返回 None 或指定的默认值。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '想最快把列表 [1,2,2,3,3,3] 去重，最方便的做法是？',
+    options: ['用 for 循环逐个判断', 'list(set(nums))', 'nums.unique()', 'nums.sort()'],
+    answer: 1,
+    explanation: '集合（set）天生不重复，set(nums) 一行去重，再转回列表即可。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '生成器函数中，"交出一个值并暂停，下次从这继续"的关键字是？',
+    options: ['return', 'yield', 'pass', 'raise'],
+    answer: 1,
+    explanation: 'yield 让函数变成生成器，边生成边消费，不把全部数据一次性放进内存。'
+  },
+  {
+    type: 'choice',
+    category: 'python',
+    question: '脚本里常见的 if __name__ == "__main__": 的作用是？',
+    options: [
+      '声明程序的主类',
+      '只有直接运行本文件时才执行其下代码，被 import 时不执行',
+      'Python 程序必须写的固定开头',
+      '导入所有第三方库'
+    ],
+    answer: 1,
+    explanation: '被别人 import 时 __name__ 是模块名而不是 "__main__"，这句判断可以避免导入时执行主逻辑。'
+  },
+
   /* ==================== 主观题 ==================== */
   {
     type: 'subjective',
@@ -641,5 +840,28 @@ export const quizQuestions = [
       '1. 性能：1000 个列表项只需要 1 个监听器，而不是 1000 个；\n' +
       '2. 动态元素：后续通过 JS 新增的子元素自动生效，不需要重新绑定事件。\n' +
       '实现思路：父元素 addEventListener("click", e => { if (e.target 匹配目标) { 处理 } })。'
+  },
+  {
+    type: 'subjective',
+    category: 'java',
+    question: '面向对象三大特性是封装、继承、多态，请分别说明各自的作用，并举例说明多态给程序带来的好处。',
+    reference:
+      '封装：把属性用 private 隐藏，通过 public 的 getter/setter 提供受控访问，\n' +
+      '可以在方法里加校验逻辑，防止外部写入非法数据，降低模块间耦合。\n' +
+      '继承：子类通过 extends 复用父类的属性和方法（代码复用），并可在父类基础上扩展或重写。\n' +
+      '多态：父类引用指向子类对象，同一方法调用在不同子类上有不同表现。\n' +
+      '多态的好处举例：feed(Animal a) 方法可以接收任何 Animal 子类对象（狗、猫、鸟），\n' +
+      '新增动物种类时无需修改 feed 方法，符合"对扩展开放、对修改关闭"的原则，\n' +
+      '这是框架和大型系统能保持灵活可扩展的基石。'
+  },
+  {
+    type: 'subjective',
+    category: 'python',
+    question: '比较 Python 中列表（list）、元组（tuple）、字典（dict）、集合（set）四种容器的特点，并各举一个典型使用场景。',
+    reference:
+      '列表：有序、可变、允许重复，下标访问。场景：购物清单、待办事项等需要频繁增删改的序列。\n' +
+      '元组：有序、不可变、允许重复。场景：坐标点 (x, y)、函数返回多个值、不应被修改的配置常量。\n' +
+      '字典：键值对映射、键唯一、查询极快（3.7+ 保持插入顺序）。场景：一个学生的信息 {"name": "小明", "age": 18}，通过名字查值的场合。\n' +
+      '集合：无序、不重复。场景：列表去重、求两份数据的交集/并集/差集（如共同好友）。'
   }
 ]

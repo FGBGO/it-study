@@ -88,7 +88,10 @@ const result = computed(() => {
 })
 
 // 分类名称映射（展示用）
-const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', all: '综合' }
+const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', java: 'Java', python: 'Python', all: '综合' }
+
+// 测试范围选项（与题库的分类对应）
+const rangeOptions = ['all', 'html', 'css', 'js', 'java', 'python']
 </script>
 
 <template>
@@ -102,7 +105,7 @@ const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', all: '综合' }
       <div class="field">
         <p class="field-label">测试范围</p>
         <div class="options">
-          <label v-for="r in ['all', 'html', 'css', 'js']" :key="r" class="option"
+          <label v-for="r in rangeOptions" :key="r" class="option"
             :class="{ active: range === r }">
             <input type="radio" :value="r" v-model="range" />
             {{ catNames[r] }}
@@ -273,6 +276,8 @@ const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', all: '综合' }
 .progress-tag.cat-html { background: #fee2e2; color: #b91c1c; }
 .progress-tag.cat-css  { background: #dbeafe; color: #1d4ed8; }
 .progress-tag.cat-js   { background: #fef3c7; color: #b45309; }
+.progress-tag.cat-java    { background: #ccfbf1; color: #0f766e; }
+.progress-tag.cat-python  { background: #ede9fe; color: #7c3aed; }
 
 .question {
   font-size: 16.5px;
