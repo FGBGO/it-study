@@ -93,6 +93,89 @@ ul {
   color: #fff;
 }
 
+/* ---- 导航下拉菜单 ---- */
+
+/* 下拉容器：作为面板的定位基准 */
+.nav-dropdown {
+  position: relative;
+}
+
+/* 下拉按钮：外观与普通导航链接保持一致 */
+.nav-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-drop-btn:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* 按钮上的小箭头，展开时旋转 180 度 */
+.nav-drop-btn .caret {
+  font-size: 10px;
+  transition: transform 0.15s;
+}
+
+.nav-dropdown.open .caret {
+  transform: rotate(180deg);
+}
+
+/* 当前页面属于该分组时，按钮使用与链接相同的高亮样式 */
+.nav-dropdown.active .nav-drop-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 下拉面板：默认隐藏，展开时向下弹出 */
+.nav-drop-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 6px;
+  z-index: 200;
+}
+
+.nav-dropdown.open .nav-drop-panel {
+  display: block;
+}
+
+/* 面板内链接纵向排列（覆盖 .main-nav a 的横排样式） */
+.nav-drop-panel a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.nav-drop-panel a:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* 面板内链接的当前页高亮 */
+.nav-drop-panel a.router-link-active {
+  background: var(--accent);
+  color: #fff;
+}
+
 /* ---- 主体区域 ---- */
 .page-main {
   max-width: 1000px;

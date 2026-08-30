@@ -2,7 +2,48 @@
 // ============================================================
 // 根组件：负责整体页面框架（顶部导航 + 内容区 + 页脚）
 // 每个具体页面由 <RouterView> 根据路由动态渲染
+// 导航栏把相关分类分组放进下拉菜单，让顶部更简洁
 // ============================================================
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+// 当前展开的下拉菜单名（null 表示全部收起）
+const openMenu = ref(null)
+
+// 分类 id -> 下拉分组的映射，用于判断当前页面属于哪个组
+const GROUP_MAP = {
+  html: 'frontend',
+  css: 'frontend',
+  js: 'frontend',
+  vue: 'frontend',
+  java: 'backend',
+  python: 'backend',
+  pg: 'backend'
+}
+
+// 当前路由所属分组（用于高亮对应的下拉按钮）
+const activeGroup = computed(() => GROUP_MAP[route.params.id] || null)
+
+// 点击按钮：展开或收起对应的下拉菜单
+function toggleMenu(name) {
+  openMenu.value = openMenu.value === name ? null : name
+}
+
+// 点击下拉面板里的链接后收起菜单
+function closeMenu() {
+  openMenu.value = null
+}
+
+// 点击导航以外区域时，收起所有下拉菜单
+function onDocClick(e) {
+  if (!e.target.closest('.nav-dropdown')) openMenu.value = null
+}
+
+// 组件挂载后监听全局点击，卸载前移除监听
+onMounted(() => document.addEventListener('click', onDocClick))
+onBeforeUnmount(() => document.removeEventListener('click', onDocClick))
 </script>
 
 <template>
@@ -12,16 +53,41 @@
       <!-- 站点 Logo，点击回到首页 -->
       <RouterLink to="/" class="logo">IT <span>学习中心</span></RouterLink>
 
-      <!-- 主导航：技能分类 + 综合测试（新增分类时在这里加一项） -->
+      <!-- 主导航：相关分类分组下拉（新增分类时在对应分组里加一项） -->
       <nav class="main-nav">
         <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/category/html">HTML</RouterLink>
-        <RouterLink to="/category/css">CSS</RouterLink>
-        <RouterLink to="/category/js">JavaScript</RouterLink>
-        <RouterLink to="/category/vue">Vue</RouterLink>
-        <RouterLink to="/category/java">Java</RouterLink>
-        <RouterLink to="/category/python">Python</RouterLink>
-        <RouterLink to="/category/pg">PostgreSQL</RouterLink>
+
+        <!-- 前端开发下拉 -->
+        <div
+          class="nav-dropdown"
+          :class="{ open: openMenu === 'frontend', active: activeGroup === 'frontend' }"
+        >
+          <button class="nav-drop-btn" type="button" @click="toggleMenu('frontend')">
+            前端开发 <span class="caret">▾</span>
+          </button>
+          <div class="nav-drop-panel">
+            <RouterLink to="/category/html" @click="closeMenu">HTML</RouterLink>
+            <RouterLink to="/category/css" @click="closeMenu">CSS</RouterLink>
+            <RouterLink to="/category/js" @click="closeMenu">JavaScript</RouterLink>
+            <RouterLink to="/category/vue" @click="closeMenu">Vue</RouterLink>
+          </div>
+        </div>
+
+        <!-- 后端与数据库下拉 -->
+        <div
+          class="nav-dropdown"
+          :class="{ open: openMenu === 'backend', active: activeGroup === 'backend' }"
+        >
+          <button class="nav-drop-btn" type="button" @click="toggleMenu('backend')">
+            后端与数据库 <span class="caret">▾</span>
+          </button>
+          <div class="nav-drop-panel">
+            <RouterLink to="/category/java" @click="closeMenu">Java</RouterLink>
+            <RouterLink to="/category/python" @click="closeMenu">Python</RouterLink>
+            <RouterLink to="/category/pg" @click="closeMenu">PostgreSQL</RouterLink>
+          </div>
+        </div>
+
         <RouterLink to="/quiz">综合测试</RouterLink>
       </nav>
     </div>
