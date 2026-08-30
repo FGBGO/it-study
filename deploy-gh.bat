@@ -1,69 +1,70 @@
 @echo off
 REM ============================================================
-REM  GitHub Pages 一键部署脚本
-REM  功能：1. 设置仓库名  2. 安装依赖（如需）  3. 构建  4. 发布到 gh-pages 分支
-REM  说明：窗口不自动关闭，方便检查报错；按提示操作即可
+REM  One-click GitHub Pages deploy (uses npm gh-pages package)
+REM  Steps: ask repo name -> install deps (if needed) -> build -> publish
+REM  Keep window open on error for inspection
 REM ============================================================
-chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 echo ============================================
-echo   GitHub Pages 一键部署
+echo   One-click GitHub Pages deploy
 echo ============================================
 echo.
 
-REM --- 第 1 步：确认仓库名 ---
+REM Step 1: ask repo name
 if "%APP_REPO%"=="" (
-    set /p APP_REPO=请输入你的 GitHub 仓库名（例如 it-study）：
+    set /p APP_REPO=Enter your GitHub repository name (e.g. it-study): 
 ) else (
-    echo 仓库名：%APP_REPO%（来自环境变量）
+    echo Repository name (from env): %APP_REPO%
 )
 
 if "%APP_REPO%"=="" (
-    echo 仓库名不能为空。
+    echo [ERROR] Repository name is required.
     pause
     exit /b 1
 )
 
-REM 去掉两边空格
+REM Trim
 for /f "tokens=* delims= " %%a in ("%APP_REPO%") do set "APP_REPO=%%a"
 
-REM --- 第 2 步：检查依赖是否安装（没有就装） ---
-if not exist node_modules\gh-pages\package.json (
-    echo [1/3] 安装依赖 gh-pages + cross-env ...
+REM Step 2: npm install (only if dependencies are missing)
+if not exist "node_modules\gh-pages\package.json" (
+    echo [1/3] Installing dependencies gh-pages + cross-env ...
     call npm install --no-audit --no-fund
     if errorlevel 1 (
-        echo 依赖安装失败，请检查上面的报错。
+        echo [ERROR] npm install failed. Check the log above.
         pause
         exit /b 1
     )
 ) else (
-    echo [1/3] 依赖已就绪，跳过 npm install
+    echo [1/3] Dependencies already present. Skipping install.
 )
 
-REM --- 第 3 步：构建（带上正确的 base = /仓库名/） ---
-echo [2/3] 开始构建，base = /%APP_REPO%/ ...
+REM Step 3: build with Vite base = /<repo>/
+echo [2/3] Building with base = /%APP_REPO%/ ...
 call npx.cmd cross-env-shell "vite build --base=/%APP_REPO%/"
 if errorlevel 1 (
-    echo 构建失败，请检查上面的报错。
+    echo [ERROR] Build failed. Check the log above.
     pause
     exit /b 1
 )
 
-REM --- 第 4 步：发布 dist/ 到 gh-pages 分支 ---
-echo [3/3] 发布 dist/ 到 GitHub gh-pages 分支 ...
+REM Step 4: publish with gh-pages npm package
+echo [3/3] Publishing dist/ to gh-pages branch ...
 echo.
-echo 如果是第一次发布，会提示你输入 GitHub 用户名与 Token（或使用 SSH key）。
-echo 远端仓库地址需要是你自己的仓库：git remote -v 可以查看。
+echo If first time, you may be prompted for GitHub credentials:
+echo   Username = FGBGO
+echo   Password = Personal Access Token (classic, scope 'repo')
 echo.
 call npx.cmd gh-pages -d dist -b gh-pages -m "deploy to gh-pages"
 if errorlevel 1 (
     echo.
-    echo 发布失败！常见原因：
-    echo   1. 还没有添加 GitHub 远端仓库  --- 请先执行：
-    echo        git remote add origin https://github.com/你的用户名/你的仓库名.git
-    echo   2. 用户名 / 密码（Token）错误
-    echo   3. 网络问题（重试一次）
+    echo [ERROR] Publish failed. Possible reasons:
+    echo   1. GitHub remote not added yet: run ^< git remote add origin https://github.com/FGBGO/it-study.git ^>
+    echo   2. Wrong username / token
+    echo   3. Network issue. Retry later.
+    echo   NOTE: If you keep hitting 'ENAMETOOLONG' or 'remote mismatch',
+    echo         double-click publish-gh.bat instead, which uses pure Git.
     echo.
     pause
     exit /b 1
@@ -71,12 +72,12 @@ if errorlevel 1 (
 
 echo.
 echo ============================================
-echo   部署成功！
+echo   [OK] Deployed successfully!
 echo ============================================
-echo 几分钟后访问：
-echo   https://你的用户名.github.io/%APP_REPO%/
 echo.
-echo GitHub 后台确认方式：
-echo   仓库 Settings -^> Pages，Source 选择 Branch: gh-pages，/ (root)
+echo Visit (after 1-3 minutes, and enabling Pages in Settings):
+echo        https://FGBGO.github.io/%APP_REPO%/
+echo.
+echo   Repo Settings -^> Pages -^> Source = Branch: gh-pages  Folder = / (root)
 echo.
 pause
