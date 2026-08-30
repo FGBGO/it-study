@@ -23,14 +23,14 @@ const categoryCards = computed(() =>
       <p class="page-desc">
         这里是一套为个人学习整理的编程教程，涵盖前端三件套
         <strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>，
-        后端语言 <strong>Java</strong>、<strong>Python</strong>，
+        前端框架 <strong>Vue</strong>，后端语言 <strong>Java</strong>、<strong>Python</strong>，
         以及数据库 <strong>PostgreSQL</strong>。
         每个知识点都配有讲解、要点总结和可复制的代码示例，
         学完后可以通过「综合测试」检验学习成果。
       </p>
       <p class="page-desc">
-        建议路线：先学 <strong>HTML</strong> + <strong>CSS</strong> + <strong>JavaScript</strong> 打好前端基础，
-        再选一门 <strong>Java</strong>（企业后端）或 <strong>Python</strong>（数据分析 / AI / 自动化）深入，
+        建议路线：先学 <strong>HTML</strong> + <strong>CSS</strong> + <strong>JavaScript</strong> 打好基础，
+        再学 <strong>Vue</strong> 进入现代前端开发；后端可选 <strong>Java</strong> 或 <strong>Python</strong>，
         配合 <strong>PostgreSQL</strong> 掌握数据存储与查询。
       </p>
     </section>

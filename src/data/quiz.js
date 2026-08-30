@@ -866,6 +866,123 @@ export const quizQuestions = [
     explanation: '参数化查询让"数据"和"代码"分离，输入内容再恶意也只会被当成参数值；拼接字符串（哪怕过滤）都可能被绕过。'
   },
 
+  /* ==================== Vue 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'vue',
+    question: 'Vue 的核心思想是？',
+    options: [
+      '手动获取元素并修改 DOM',
+      '只管修改数据，视图随数据自动更新（声明式 + 响应式）',
+      '所有页面刷新跳转',
+      '必须配合 jQuery 使用'
+    ],
+    answer: 1,
+    explanation: 'Vue 把"数据 -> 视图"自动化：开发者只改数据，DOM 更新交给框架，这正是它和原生 JS 最大的区别。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: '在 script setup 中，ref 创建的响应式数据如何访问和修改？',
+    options: ['直接 count++', 'count.value++', 'count()++', 'setCount(count + 1)'],
+    answer: 1,
+    explanation: 'ref 包装后通过 .value 读写（脚本里）；模板里使用时会自动解包，不用 .value。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: 'v-if 与 v-show 的区别，正确的是？',
+    options: [
+      '完全一样，可以随便换用',
+      'v-if 是真创建/销毁元素，v-show 只是切换 display 样式',
+      'v-show 是真创建/销毁元素，v-if 只是改样式',
+      'v-if 只能用于组件'
+    ],
+    answer: 1,
+    explanation: '频繁切换用 v-show（不反复创建销毁），条件很少变化用 v-if（不渲染就省资源）。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: 'v-for 列表渲染中，:key 应该用什么？',
+    options: ['数组下标 index', '随机数', '数据里唯一且稳定的 id', '不写 key 性能最好'],
+    answer: 2,
+    explanation: 'key 是 diff 比对的"身份证"，用下标在插入/排序/删除时会错位；唯一 id 才能保证正确复用节点。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: 'v-model 的本质是什么？',
+    options: [
+      '一个神奇的指令没有任何原理',
+      ':value 绑定 + @input 事件更新的语法糖',
+      '只能用于 input 输入框',
+      '双向修改父组件的 props'
+    ],
+    answer: 1,
+    explanation: 'v-model = 值绑定 + 输入事件监听的语法糖，表单和自定义组件都遵循这个本质。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: '关于 computed 计算属性，下列说法正确的是？',
+    options: [
+      '每次页面渲染都会重新执行一遍',
+      '基于依赖缓存：依赖不变就不重新计算',
+      '主要用于监听数据变化后发请求',
+      '必须在里面修改原始数据'
+    ],
+    answer: 1,
+    explanation: 'computed 有缓存，适合"由已有数据算出新数据"；发请求属于副作用应该用 watch。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: '子组件想通知父组件"我被点击了"，正确的通信方式是？',
+    options: [
+      '子组件直接修改父组件传来的 props',
+      '子组件用 emit 抛出自定义事件，父组件 @ 监听',
+      '子组件用 $parent 强行改父组件数据',
+      '把数据存到全局变量里'
+    ],
+    answer: 1,
+    explanation: '单向数据流：props 下行传数据，emit 上行传意图，父组件修改数据源后再经 props 流回来。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: '发送接口请求（如 fetch 数据）通常放在哪个生命周期钩子里？',
+    options: ['onBeforeMount', 'onMounted', 'onUnmounted', 'onUpdated'],
+    answer: 1,
+    explanation: 'onMounted 表示组件已挂载、DOM 就绪，是发请求、初始化第三方库的标准位置；onUnmounted 负责清理。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: '很多不相邻的组件需要共享登录用户信息，最合适的方案是？',
+    options: [
+      '一层层 props 传下去',
+      '用 Pinia 建全局 store',
+      '每层组件都 provide 一遍',
+      '存到 window 全局变量'
+    ],
+    answer: 1,
+    explanation: '跨组件/全局共享状态用 Pinia：集中管理、任意组件读写、配合持久化插件刷新不丢。'
+  },
+  {
+    type: 'choice',
+    category: 'vue',
+    question: 'Vue Router 中 component: () => import("../views/Quiz.vue") 这种写法的好处是？',
+    options: [
+      '没有好处，纯属个人风格',
+      '路由懒加载：组件用到时才加载，减小首屏体积',
+      '让组件自动获得动画',
+      '防止用户直接输入 URL 访问'
+    ],
+    answer: 1,
+    explanation: '动态 import 让每个页面打包成独立 chunk，首屏只加载当前页，访问其他页时再按需下载。'
+  },
+
   /* ==================== 主观题 ==================== */
   {
     type: 'subjective',
@@ -977,5 +1094,20 @@ export const quizQuestions = [
       '1. WHERE 在分组前执行，过滤的是"原始行"，不能使用聚合函数——因为执行到它时还没有分组，聚合结果不存在；\n' +
       '2. HAVING 在分组后执行，过滤的是"组"，通常配合聚合函数使用（如 HAVING COUNT(*) > 3）；\n' +
       '3. 能在 WHERE 里完成的过滤尽量放 WHERE，提前减少参与分组的数据量，性能更好。'
+  },
+  {
+    type: 'subjective',
+    category: 'vue',
+    question: '请描述 Vue 的响应式原理（Proxy），并结合"props 下行、emit 上行"说明父子组件的数据流转过程。',
+    reference:
+      '响应式原理：Vue 3 用 Proxy 拦截对象的读取和修改。组件渲染时会读取用到的数据（依赖收集），\n' +
+      '数据被修改时触发拦截器，通知所有依赖它的地方（组件、computed、watch）重新执行，\n' +
+      '因此开发者只改数据、不用碰 DOM，视图自动更新。\n' +
+      'ref 包装基础类型（脚本里 .value 访问），reactive 代理对象；解构 reactive 会丢失响应式。\n' +
+      '父子数据流转：\n' +
+      '1. 父组件把数据通过 props 传给子组件（数据下行），子组件只读不改；\n' +
+      '2. 子组件需要"改"时，通过 defineEmits 抛出自定义事件并携带数据（意图上行）；\n' +
+      '3. 父组件在事件回调里修改自己的数据源，新数据再经 props 流回子组件，视图同步更新；\n' +
+      '4. 单向数据流让数据变化始终可追踪（只有父组件能改源头），是可维护性的关键。'
   }
 ]

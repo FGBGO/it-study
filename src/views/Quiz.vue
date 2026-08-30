@@ -88,10 +88,10 @@ const result = computed(() => {
 })
 
 // 分类名称映射（展示用）
-const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', java: 'Java', python: 'Python', pg: 'PostgreSQL', all: '综合' }
+const catNames = { html: 'HTML', css: 'CSS', js: 'JavaScript', vue: 'Vue', java: 'Java', python: 'Python', pg: 'PostgreSQL', all: '综合' }
 
 // 测试范围选项（与题库的分类对应）
-const rangeOptions = ['all', 'html', 'css', 'js', 'java', 'python', 'pg']
+const rangeOptions = ['all', 'html', 'css', 'js', 'vue', 'java', 'python', 'pg']
 </script>
 
 <template>
@@ -279,6 +279,7 @@ const rangeOptions = ['all', 'html', 'css', 'js', 'java', 'python', 'pg']
 .progress-tag.cat-java    { background: #ccfbf1; color: #0f766e; }
 .progress-tag.cat-python  { background: #ede9fe; color: #7c3aed; }
 .progress-tag.cat-pg      { background: #dbeafe; color: #336791; }
+.progress-tag.cat-vue     { background: #dcfce7; color: #16a34a; }
 
 .question {
   font-size: 16.5px;

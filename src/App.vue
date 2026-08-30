@@ -18,6 +18,7 @@
         <RouterLink to="/category/html">HTML</RouterLink>
         <RouterLink to="/category/css">CSS</RouterLink>
         <RouterLink to="/category/js">JavaScript</RouterLink>
+        <RouterLink to="/category/vue">Vue</RouterLink>
         <RouterLink to="/category/java">Java</RouterLink>
         <RouterLink to="/category/python">Python</RouterLink>
         <RouterLink to="/category/pg">PostgreSQL</RouterLink>
@@ -33,6 +34,6 @@
 
   <!-- 页脚 -->
   <footer class="site-footer">
-    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Java / Python / PostgreSQL
+    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Vue / Java / Python / PostgreSQL
   </footer>
 </template>
