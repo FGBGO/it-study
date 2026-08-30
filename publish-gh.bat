@@ -12,6 +12,16 @@ echo   Publish to GitHub Pages (gh-pages branch)
 echo ============================================
 echo.
 
+REM ---------- Capture author identity from the current repo ----------
+REM (the temp repo will be brand new and would otherwise fail with
+REM  "Author identity unknown" if user has no --global git config)
+for /f "tokens=*" %%i in ('git config user.name  2^>nul') do set GIT_USER_NAME=%%i
+for /f "tokens=*" %%i in ('git config user.email 2^>nul') do set GIT_USER_EMAIL=%%i
+if "%GIT_USER_NAME%"==""  set GIT_USER_NAME=it-study
+if "%GIT_USER_EMAIL%"=="" set GIT_USER_EMAIL=it-study@local
+echo Author: %GIT_USER_NAME% ^<%GIT_USER_EMAIL%^>
+echo.
+
 REM Read origin URL from current repo
 for /f "tokens=*" %%i in ('git remote get-url origin 2^>nul') do set REMOTE=%%i
 if "%REMOTE%"=="" (
@@ -44,9 +54,17 @@ xcopy "dist\*" "%TMP_DIR%\" /E /Y /I /Q >nul
 REM Create 404.html as a fallback (harmless for hash routing)
 copy /Y "%TMP_DIR%\index.html" "%TMP_DIR%\404.html" >nul
 
-REM Init git in temp dir, create orphan gh-pages commit
+REM Init git in temp dir, set identity explicitly, create orphan gh-pages commit
 cd /d "%TMP_DIR%"
 git init >nul
+
+REM --- Fix 1: set the author identity on the temp repo explicitly ---
+git config user.name  "%GIT_USER_NAME%"
+git config user.email "%GIT_USER_EMAIL%"
+
+REM --- Fix 2: disable autocrlf conversion in temp repo to kill LF/CRLF warnings ---
+git config core.autocrlf false
+
 git checkout -b gh-pages >nul 2>&1
 git add -A >nul
 git commit -m "deploy gh-pages" >nul
