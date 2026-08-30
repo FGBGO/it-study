@@ -1,58 +1,60 @@
 @echo off
 rem ============================================================
-rem IT 教学网站 - 启动脚本
-rem 双击运行即可启动网站，窗口会保持打开，报错信息可在此查看
+rem IT Study Website - Start Script
+rem Double-click to run. This window stays open so you can
+rem check any error messages. To stop the site, use stop.bat.
 rem ============================================================
-chcp 65001 >nul
-title IT 教学网站 - 正在运行
+title IT Study Website - Running
 
-rem 切换到本脚本所在目录（即项目目录）
+rem Switch to the folder where this script lives (project root)
 cd /d "%~dp0"
 
 echo ============================================
-echo   IT 教学网站 启动中...
+echo   IT Study Website starting...
 echo ============================================
 echo.
 
-rem 检查是否安装了 Node.js
+rem Check that Node.js is installed
 where node >nul 2>nul
 if errorlevel 1 (
-    echo [错误] 未检测到 Node.js，请先安装：https://nodejs.org/
+    echo [ERROR] Node.js not found. Please install it first: https://nodejs.org/
     echo.
     pause
     exit /b 1
 )
 
-rem 首次运行时自动安装依赖
+rem First run: install dependencies automatically
 if not exist "node_modules" (
-    echo 首次运行，正在安装依赖，可能需要几分钟，请耐心等待...
+    echo First run: installing dependencies, this may take a few minutes...
     echo.
     call npm install
     if errorlevel 1 (
         echo.
-        echo [错误] 依赖安装失败，请检查上方错误信息或网络连接。
+        echo [ERROR] npm install failed. Check the messages above or your network.
         echo.
         pause
         exit /b 1
     )
 )
 
-echo 正在启动开发服务器...
+echo Starting dev server...
 echo.
-echo   网站地址：http://localhost:5173
-echo   使用方法：在浏览器中打开上面的地址即可开始学习
-echo   注意：学习期间请勿关闭本窗口；结束学习请双击 stop.bat 关闭网站
+echo   Website: http://localhost:5173
+echo   How to use: open the address above in your browser to start learning.
+echo   NOTE: keep this window open while studying.
+echo   To stop the site: double-click stop.bat
 echo.
 echo ============================================
 echo.
 
-rem 启动 Vite 开发服务器（前台运行，直到手动关闭或出错）
+rem Run the Vite dev server in the foreground until stopped or crashed
 call npm run dev
 
 echo.
 echo ============================================
-echo 开发服务器已停止。若上方出现红色报错信息，
-echo 请截图排查；按任意键或直接关闭本窗口退出。
+echo Dev server stopped. If there are red error messages above,
+echo take a screenshot for troubleshooting.
+echo Press any key or close this window to exit.
 echo ============================================
 echo.
 pause

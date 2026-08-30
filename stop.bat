@@ -1,43 +1,42 @@
 @echo off
 rem ============================================================
-rem IT 教学网站 - 关闭脚本
-rem 双击运行即可停止网站服务，窗口保持打开以便查看结果
+rem IT Study Website - Stop Script
+rem Double-click to stop the website server. This window stays
+rem open so you can check the result.
 rem ============================================================
-chcp 65001 >nul
-title IT 教学网站 - 关闭服务
+title IT Study Website - Stop Server
 
-rem 网站固定运行在 5173 端口（与 vite.config.js 中配置一致）
+rem The site runs on fixed port 5173 (must match vite.config.js)
 set "PORT=5173"
 set "PID="
 
 echo ============================================
-echo   正在查找运行中的网站服务（端口 %PORT%）...
+echo   Looking for the running website server on port %PORT%...
 echo.
 
-rem 通过端口号找到监听中的进程 PID
+rem Find the PID of the process listening on that port
 for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":%PORT% " ^| findstr "LISTENING"') do (
     set "PID=%%a"
 )
 
-rem 找到则结束进程，否则给出提示
 if defined PID (
-    echo 找到服务进程，PID=%PID%，正在关闭...
+    echo Found server process, PID=%PID%. Stopping it...
     taskkill /f /pid %PID% >nul 2>&1
     if errorlevel 1 (
         echo.
-        echo [错误] 关闭失败，可能需要手动在任务管理器中结束该进程。
+        echo [ERROR] Failed to kill the process. Close it manually in Task Manager if needed.
     ) else (
         echo.
-        echo 网站服务已成功关闭，浏览器中将无法继续访问。
+        echo Website server stopped successfully.
     )
 ) else (
-    echo 未发现运行中的网站服务（端口 %PORT% 无监听进程）。
-    echo 如果网站仍可访问，可能是端口配置被修改，请检查 vite.config.js。
+    echo No running website server found - nothing is listening on port %PORT%.
+    echo If the site is still reachable, the port config was changed. Check vite.config.js.
 )
 
 echo.
 echo ============================================
-echo 按任意键或直接关闭本窗口退出。
+echo Press any key or close this window to exit.
 echo ============================================
 echo.
 pause
