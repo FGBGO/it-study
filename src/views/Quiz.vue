@@ -45,7 +45,8 @@ function startQuiz() {
   const choices = shuffle(choicePool.value).slice(0, Math.min(total, choicePool.value.length))
   // 主观题最多取 2 道，作为辅助
   const subjective = shuffle(subjectivePool.value).slice(0, 2)
-  paper.value = [...choices, ...subjective]
+  // 题库数据没有 id 字段，这里按位置生成唯一 id，保证每道题的答案独立存储
+  paper.value = [...choices, ...subjective].map((item, i) => ({ ...item, id: `q${i + 1}` }))
   answers.value = {}
   current.value = 0
   stage.value = 'run'
