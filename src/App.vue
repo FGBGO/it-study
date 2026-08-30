@@ -12,12 +12,13 @@
       <!-- 站点 Logo，点击回到首页 -->
       <RouterLink to="/" class="logo">IT <span>学习中心</span></RouterLink>
 
-      <!-- 主导航：三个技能分类 + 综合测试 -->
+      <!-- 主导航：技能分类 + 综合测试（新增分类时在这里加一项） -->
       <nav class="main-nav">
         <RouterLink to="/">首页</RouterLink>
         <RouterLink to="/category/html">HTML</RouterLink>
         <RouterLink to="/category/css">CSS</RouterLink>
         <RouterLink to="/category/js">JavaScript</RouterLink>
+        <RouterLink to="/category/java">Java</RouterLink>
         <RouterLink to="/quiz">综合测试</RouterLink>
       </nav>
     </div>
@@ -30,6 +31,6 @@
 
   <!-- 页脚 -->
   <footer class="site-footer">
-    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript
+    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Java
   </footer>
 </template>

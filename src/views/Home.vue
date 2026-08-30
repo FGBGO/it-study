@@ -21,15 +21,15 @@ const categoryCards = computed(() =>
     <section class="card hero">
       <h1 class="page-title">欢迎来到 IT 学习中心</h1>
       <p class="page-desc">
-        这里是一套为个人学习整理的前端基础教程，涵盖
+        这里是一套为个人学习整理的编程教程，涵盖前端三件套
         <strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>
-        三大核心技能。每个知识点都配有讲解、要点总结和可复制的代码示例，
+        与后端语言 <strong>Java</strong>。每个知识点都配有讲解、要点总结和可复制的代码示例，
         学完后可以通过「综合测试」检验学习成果。
       </p>
       <p class="page-desc">
         建议按顺序学习：先掌握 <strong>HTML</strong> 搭建页面结构，
-        再学习 <strong>CSS</strong> 美化页面，最后学习
-        <strong>JavaScript</strong> 实现交互。
+        再学习 <strong>CSS</strong> 美化页面、<strong>JavaScript</strong> 实现交互，
+        然后进军 <strong>Java</strong> 打开后端世界的大门。
       </p>
     </section>
 

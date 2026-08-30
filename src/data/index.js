@@ -6,9 +6,10 @@
 import htmlData from './html.js'
 import cssData from './css.js'
 import jsData from './js.js'
+import javaData from './java.js'
 
 // 所有教学分类
-export const categories = [htmlData, cssData, jsData]
+export const categories = [htmlData, cssData, jsData, javaData]
 
 // ------------------------------------------------------------
 // 构建「课时 id -> 课时信息」的扁平索引，方便路由快速查找
