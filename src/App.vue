@@ -20,7 +20,9 @@ const GROUP_MAP = {
   vue: 'frontend',
   java: 'backend',
   python: 'backend',
-  pg: 'backend'
+  pg: 'backend',
+  git: 'tools',
+  maven: 'tools'
 }
 
 // 当前路由所属分组（用于高亮对应的下拉按钮）
@@ -89,6 +91,20 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick))
           </div>
         </div>
 
+        <!-- 开发工具下拉 -->
+        <div
+          class="nav-dropdown"
+          :class="{ open: openMenu === 'tools', active: activeGroup === 'tools' }"
+        >
+          <button class="nav-drop-btn" type="button" @click="toggleMenu('tools')">
+            开发工具 <span class="caret">▾</span>
+          </button>
+          <div class="nav-drop-panel">
+            <RouterLink to="/category/git" @click="closeMenu">Git</RouterLink>
+            <RouterLink to="/category/maven" @click="closeMenu">Maven</RouterLink>
+          </div>
+        </div>
+
         <RouterLink to="/quiz">综合测试</RouterLink>
       </nav>
     </div>
@@ -101,6 +117,6 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick))
 
   <!-- 页脚 -->
   <footer class="site-footer">
-    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Vue / Java / Spring Boot / Python / PostgreSQL
+    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Vue / Java / Spring Boot / Python / PostgreSQL / Git / Maven
   </footer>
 </template>

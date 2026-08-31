@@ -25,14 +25,16 @@ const categoryCards = computed(() =>
         <strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>，
         前端框架 <strong>Vue</strong>，后端语言 <strong>Java</strong>、
         <strong>Spring Boot</strong>、<strong>Python</strong>，
-        以及数据库 <strong>PostgreSQL</strong>。
+        数据库 <strong>PostgreSQL</strong>，
+        以及开发工具 <strong>Git</strong>、<strong>Maven</strong>。
         每个知识点都配有讲解、要点总结和可复制的代码示例，
         学完后可以通过「综合测试」检验学习成果。
       </p>
       <p class="page-desc">
         建议路线：先学 <strong>HTML</strong> + <strong>CSS</strong> + <strong>JavaScript</strong> 打好基础，
         再学 <strong>Vue</strong> 进入现代前端开发；后端走 <strong>Java</strong> + <strong>Spring Boot</strong>
-        或 <strong>Python</strong>，配合 <strong>PostgreSQL</strong> 掌握数据存储与查询。
+        或 <strong>Python</strong>，配合 <strong>PostgreSQL</strong> 掌握数据存储与查询；
+        全程用 <strong>Git</strong> 管理代码版本，用 <strong>Maven</strong> 管理依赖与构建。
       </p>
     </section>
 
@@ -56,7 +58,7 @@ const categoryCards = computed(() =>
       <div>
         <h2>综合测试</h2>
         <p class="page-desc">
-          选择题为主、主观题为辅，覆盖 HTML / CSS / JS 全部知识点，
+          选择题为主、主观题为辅，覆盖全部十个技能分类的知识点，
           用来检验阶段学习成果。
         </p>
       </div>

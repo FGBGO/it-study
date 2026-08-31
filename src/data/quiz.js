@@ -1258,5 +1258,291 @@ export const quizQuestions = [
       '查询方法加 @Cacheable 让结果进 Redis，减少数据库压力；\n' +
       '新增/修改/删除方法加 @CacheEvict 及时失效旧缓存，遵循"先更新数据库、再删缓存"，避免用户读到脏数据；\n' +
       '整体流程：请求 → Controller 校验参数 → Service 业务 + 事务 + 缓存注解 → Repository 读写 PostgreSQL → 逐层返回 → 统一 JSON 响应。'
+  },
+
+  /* ==================== Git 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'git',
+    question: 'Git 属于哪种类型的版本控制系统？',
+    options: [
+      '集中式版本控制系统',
+      '分布式版本控制系统',
+      '云端文档同步系统',
+      '文件备份压缩工具'
+    ],
+    answer: 1,
+    explanation: 'Git 是分布式版本控制：每个人电脑上都有完整的历史记录，可离线提交，联网时再与远程仓库同步。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '文件从工作区进入版本库的正确流转顺序是？',
+    options: [
+      'commit → add → 工作区',
+      '工作区 → git add → 暂存区 → git commit → 版本库',
+      '工作区 → git commit → 暂存区 → git push → 版本库',
+      '暂存区 → git add → 工作区 → git commit → 版本库'
+    ],
+    answer: 1,
+    explanation: '三个区域：工作区（编辑中）→ git add 进入暂存区（待提交清单）→ git commit 固化为版本库中的一次提交。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: 'git add 的作用是？',
+    options: [
+      '把文件提交到远程仓库',
+      '创建一个新分支',
+      '把改动加入暂存区，等待下次提交',
+      '撤销上一次提交'
+    ],
+    answer: 2,
+    explanation: 'add 负责把工作区改动放进暂存区；真正记录历史的是 commit，推送到远程的是 push。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '想查看提交历史，应该使用哪个命令？',
+    options: ['git status', 'git diff', 'git log', 'git show HEAD~5'],
+    answer: 2,
+    explanation: 'git log 列出提交历史；status 看当前文件状态；diff 看未提交的差异；show 看某一次提交的详情。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: 'git reset --hard HEAD~1 执行后，未提交的修改会？',
+    options: [
+      '保留在暂存区',
+      '保留在工作区',
+      '被彻底丢弃，无法从工作区恢复',
+      '被自动推送到远程'
+    ],
+    answer: 2,
+    explanation: '--hard 会同时清空暂存区和工作区。已提交的内容还能通过 reflog 找回，但从未提交的修改会真正丢失，慎用。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '对已推送到公共分支的错误提交，推荐用什么方式撤销？',
+    options: [
+      'git reset --hard 回退后强推',
+      'git revert 生成一个反向提交',
+      '直接修改远程仓库的文件',
+      '删除整个仓库重建'
+    ],
+    answer: 1,
+    explanation: 'revert 通过生成"抵消提交"来撤销效果，历史完整保留、不影响协作者；reset + 强推会改写公共历史，是团队协作大忌。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '关于分支，下列说法正确的是？',
+    options: [
+      '创建分支需要完整复制一遍所有文件，开销很大',
+      '分支只是指向某次提交的可移动指针，创建几乎零成本',
+      '分支一旦创建就不能删除',
+      'main 分支上的提交不能被撤销'
+    ],
+    answer: 1,
+    explanation: '分支本质是一个 40 位哈希的小文件（指针），创建/切换/删除都极快；main 上的提交同样可以 revert/reset。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '合并分支时出现冲突，正确的处理流程是？',
+    options: [
+      '放弃合并，重新写一遍代码',
+      '打开冲突文件，编辑冲突块后 git add，再 git commit 完成合并',
+      '执行 git push 让远程自动解决',
+      '删除其中一个分支即可'
+    ],
+    answer: 1,
+    explanation: '冲突意味着 Git 无法自动裁决"同一处两个版本"。人工编辑冲突文件（处理 <<<<<<< ======= >>>>>>> 标记）→ add 标记已解决 → commit 收尾。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: 'git pull 等价于哪两个命令的组合？',
+    options: [
+      'git clone + git merge',
+      'git fetch + git merge',
+      'git push + git fetch',
+      'git commit + git push'
+    ],
+    answer: 1,
+    explanation: 'pull = fetch（下载远程更新）+ merge（合并到当前分支）。想先观察再合并，可以单独用 fetch。'
+  },
+  {
+    type: 'choice',
+    category: 'git',
+    question: '文件已被 Git 跟踪（提交过）后，再把它加入 .gitignore，会怎样？',
+    options: [
+      'Git 立刻停止跟踪它',
+      '该文件被自动删除',
+      '它仍会被继续跟踪，ignore 只对未跟踪文件生效，需先 git rm --cached 移出',
+      '.gitignore 会报错'
+    ],
+    answer: 2,
+    explanation: '.gitignore 只能阻止"未跟踪"文件被纳入。已跟踪文件要先 git rm --cached 移出索引（保留本地文件），ignore 才会生效。'
+  },
+
+  /* ==================== Git 主观题 ==================== */
+  {
+    type: 'subjective',
+    category: 'git',
+    question: '请描述团队协作中一次完整的功能开发流程（从同步主线到清理分支），并说明：①为什么功能要在独立分支上开发；②遇到合并冲突时如何解决。',
+    reference:
+      '标准流程（GitHub Flow）：\n' +
+      '1. 同步主线：git switch main && git pull；\n' +
+      '2. 开功能分支：git switch -c feat/xxx（命名写清用途）；\n' +
+      '3. 小步开发：多次 add + commit，提交说明用 Conventional Commits 规范（feat/fix/...）；\n' +
+      '4. 推送备份：git push -u origin feat/xxx；\n' +
+      '5. 发起 Pull Request，队友 code review，按意见继续提交；\n' +
+      '6. 审核通过后合并（可 Squash merge 保持主线整洁）；\n' +
+      '7. 删除本地与远程功能分支。\n' +
+      '①独立分支的原因：隔离未完成的工作，main 始终保持可发布状态；\n' +
+      '出问题可整体回退/丢弃分支，不影响他人；多人并行开发互不阻塞。\n' +
+      '②冲突处理：冲突发生在"两个分支修改了同一文件的同一处"，Git 无法自动裁决；\n' +
+      'git status 找出冲突文件 → 打开文件处理 <<<<<<< ======= >>>>>>> 标记块，\n' +
+      '决定保留哪方或融合双方 → git add 标记已解决 → git commit 完成合并。\n' +
+      '思路是"冲突不是错误，是需要人来做的业务决策"。'
+  },
+
+  /* ==================== Maven 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'maven',
+    question: 'Maven 的核心作用不包括以下哪项？',
+    options: [
+      '自动下载和管理依赖 jar 包',
+      '提供标准化的项目结构',
+      '提供统一的生命周期构建命令',
+      '替代 Java 编译器生成字节码规范'
+    ],
+    answer: 3,
+    explanation: 'Maven 调用 JDK 的编译器来编译代码，它本身定义的是"依赖管理 + 标准结构 + 生命周期"这套构建流程，不是编译规范。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: 'Maven 坐标的三要素是？',
+    options: [
+      'groupId、artifactId、version',
+      'name、url、description',
+      'groupId、packaging、scope',
+      'artifactId、scope、classifier'
+    ],
+    answer: 0,
+    explanation: 'groupId（组织）+ artifactId（项目/模块名）+ version（版本）三者组合在仓库世界中唯一定位一个构件。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: '<dependency> 不写 <scope> 时，默认值是？',
+    options: ['test', 'provided', 'compile', 'runtime'],
+    answer: 2,
+    explanation: '默认 scope 是 compile：编译、测试、运行三个阶段都参与 classpath，是最常见的普通依赖。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: 'servlet-api 这类由 Tomcat 在运行时提供的库，打包部署时应设置 scope 为？',
+    options: ['compile', 'provided', 'runtime', 'test'],
+    answer: 1,
+    explanation: 'provided 表示"编译期需要（写代码用到），运行期由容器提供"，打 war 部署到外置 Tomcat 的标准写法，避免 jar 冲突。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: '两条依赖路径分别带来 1.0 和 2.0 版本的同一个库（路径长度不同），Maven 采用哪个版本？',
+    options: [
+      '版本号较大的 2.0',
+      '依赖路径最短的那个版本',
+      'pom 里声明顺序在后的',
+      '随机选择一个'
+    ],
+    answer: 1,
+    explanation: '冲突调解第一规则是"最短路径优先"；路径长度相同时才按"先声明者优先"。可用 mvn dependency:tree -Dverbose 排查。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: 'mvn install 与 mvn package 的区别是？',
+    options: [
+      '没有区别，只是名字不同',
+      'install 会额外把打好的包安装进本地仓库，供本机其他项目引用',
+      'package 会把包发布到中央仓库',
+      'install 不执行测试，package 会执行'
+    ],
+    answer: 1,
+    explanation: 'package 产出 jar 到 target/；install = package + 装入本地仓库（~/.m2）；deploy 才是发布到远程仓库。两者默认都会先跑测试。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: '关于 Maven 生命周期，正确的说法是？',
+    options: [
+      '执行 mvn package 只会运行 package 阶段',
+      '执行某个 phase 时，同生命周期中它之前的阶段会依次执行',
+      'clean、default、site 三套生命周期必须一起执行',
+      '插件与生命周期无关'
+    ],
+    answer: 1,
+    explanation: '生命周期是有序阶段链：mvn package 会依次执行 validate → compile → test → package。插件提供具体实现，绑定在各 phase 上完成实际工作。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: '<dependencyManagement> 与 <dependencies> 的关系是？',
+    options: [
+      '两者完全等价，可以互换',
+      'dependencyManagement 只声明版本不引入依赖；dependencies 里的同坐标依赖可不写版本',
+      'dependencyManagement 用于下载源码包',
+      'dependencies 只能出现在父 pom 中'
+    ],
+    answer: 1,
+    explanation: 'dependencyManagement 是"定价表"：统一锁定版本但不真正引入；子模块/本 pom 在 dependencies 里引用时免写版本。Spring Boot parent 就是这样托管版本的。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: 'settings.xml 可以配置的内容是？',
+    options: [
+      'Java 源代码的包结构',
+      '本地仓库位置、远程仓库镜像、私服认证信息',
+      'Spring Boot 的端口号',
+      '单元测试的断言方式'
+    ],
+    answer: 1,
+    explanation: 'settings.xml 是 Maven 的用户级配置：localRepository（本地仓库路径）、mirrors（如阿里云镜像）、servers（私服账号）等，与项目代码无关。'
+  },
+  {
+    type: 'choice',
+    category: 'maven',
+    question: '多模块项目中，父工程 pom 必须设置的 packaging 是？',
+    options: ['jar', 'war', 'pom', 'maven-plugin'],
+    answer: 2,
+    explanation: '聚合（父）工程的 packaging 必须是 pom，它通过 <modules> 聚合子模块、通过 <parent> 被子模块继承，本身不含代码。'
+  },
+
+  /* ==================== Maven 主观题 ==================== */
+  {
+    type: 'subjective',
+    category: 'maven',
+    question: '请说明 Maven 解析一个依赖时的查找顺序，并描述：①依赖冲突的调解规则；②如何用命令排查并解决版本冲突。',
+    reference:
+      '依赖查找顺序：\n' +
+      '1. 先查本地仓库（~/.m2/repository 或 localRepository 配置的目录），命中直接使用；\n' +
+      '2. 未命中则按配置的镜像/远程仓库（如阿里云、中央仓库）下载并缓存到本地；\n' +
+      '3. 都不存在则报 Could not find artifact。\n' +
+      '冲突调解规则：\n' +
+      '1. 路径最短优先：A→B→C(2.0) 与 A→C(1.0) 冲突时选路径短的 1.0；\n' +
+      '2. 路径长度相同时，先声明者优先（pom 中靠前的 dependency 获胜）。\n' +
+      '排查与解决：\n' +
+      '1. mvn dependency:tree -Dverbose 查看依赖树，定位同一库的不同来源与被忽略(omitted)的版本；\n' +
+      '2. 在引入方使用 <exclusions> 排除不需要的传递依赖；\n' +
+      '3. 需要统一版本时用 dependencyManagement（或 BOM）锁定版本；\n' +
+      '4. 修改后重新构建验证（必要时 mvn clean install -U 强制刷新）。'
   }
 ]
