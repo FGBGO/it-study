@@ -18,6 +18,7 @@ const GROUP_MAP = {
   css: 'frontend',
   js: 'frontend',
   vue: 'frontend',
+  uniapp: 'frontend',
   java: 'backend',
   python: 'backend',
   pg: 'backend',
@@ -72,6 +73,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick))
             <RouterLink to="/category/css" @click="closeMenu">CSS</RouterLink>
             <RouterLink to="/category/js" @click="closeMenu">JavaScript</RouterLink>
             <RouterLink to="/category/vue" @click="closeMenu">Vue</RouterLink>
+            <RouterLink to="/category/uniapp" @click="closeMenu">小程序(uni-app)</RouterLink>
           </div>
         </div>
 
@@ -117,6 +119,6 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick))
 
   <!-- 页脚 -->
   <footer class="site-footer">
-    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Vue / Java / Spring Boot / Python / PostgreSQL / Git / Maven
+    IT 学习中心 · 个人学习使用 · HTML / CSS / JavaScript / Vue / 小程序 / Java / Spring Boot / Python / PostgreSQL / Git / Maven
   </footer>
 </template>

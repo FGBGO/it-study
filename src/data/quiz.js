@@ -1544,5 +1544,138 @@ export const quizQuestions = [
       '2. 在引入方使用 <exclusions> 排除不需要的传递依赖；\n' +
       '3. 需要统一版本时用 dependencyManagement（或 BOM）锁定版本；\n' +
       '4. 修改后重新构建验证（必要时 mvn clean install -U 强制刷新）。'
+  },
+
+  /* ==================== 小程序 uni-app 选择题 ==================== */
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: 'uni-app 开发小程序时使用的核心语法是？',
+    options: [
+      '原生微信小程序的 wxml/wxss',
+      'Vue 单文件组件语法（template + script + style）',
+      'React JSX 语法',
+      '纯 HTML + jQuery'
+    ],
+    answer: 1,
+    explanation: 'uni-app 用 Vue 语法编写，编译器把 Vue 组件翻译成微信小程序的 wxml/wxss/js，因此学完 Vue 即可快速上手。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: 'uni-app 项目中，页面路由和导航栏样式主要在哪个文件配置？',
+    options: ['manifest.json', 'pages.json', 'App.vue', 'router/index.js'],
+    answer: 1,
+    explanation: 'pages.json 注册页面路径、配置 navigationBar 样式和底部 tabBar；manifest.json 管应用身份（AppID 等）；uni-app 没有 vue-router。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '小程序中用于容器布局、相当于网页 div 的组件是？',
+    options: ['<div>', '<view>', '<container>', '<box>'],
+    answer: 1,
+    explanation: '小程序组件：view 相当于 div，text 相当于 span/文本，image 相当于 img，navigator 相当于 a 链接。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: 'rpx 单位的特点是？',
+    options: [
+      '固定等于 1 个物理像素',
+      '屏幕宽度恒为 750rpx，随屏幕自动等比缩放',
+      '只在 iOS 上生效',
+      '和 px 完全等价'
+    ],
+    answer: 1,
+    explanation: 'rpx 是响应式像素：任何屏幕宽度都是 750rpx，布局尺寸用 rpx 会自动等比缩放；750px 宽的设计稿量得多少 px 就写多少 rpx。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '从首页跳转到底部 tabBar 的"我的"页面，应该使用？',
+    options: [
+      'uni.navigateTo',
+      'uni.switchTab',
+      'uni.redirectTo',
+      'uni.navigateBack'
+    ],
+    answer: 1,
+    explanation: 'tabBar 页面只能用 switchTab 跳转，navigateTo 跳 tabBar 页会静默失败；navigateTo 用于普通页面（可返回）。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '接收上一页跳转参数（如 id=100）应在哪个页面生命周期中处理？',
+    options: ['onLaunch', 'onLoad', 'onReady', 'onUnload'],
+    answer: 1,
+    explanation: 'onLoad(options) 在页面加载时触发一次，options 就是 URL 上的参数对象；onLaunch 是应用级生命周期，在 App.vue 中。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '小程序中发起网络请求使用的 API 是？',
+    options: ['fetch()', 'axios.get()', 'uni.request()', 'XMLHttpRequest'],
+    answer: 2,
+    explanation: '小程序没有 DOM/BOM，不能用 fetch、XHR、axios（其底层依赖 XHR）；统一用 uni.request，实际开发中通常封装成 Promise。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '关于小程序本地存储，正确的是？',
+    options: [
+      '使用 localStorage.setItem',
+      '使用 uni.setStorageSync，数据会持久化，关闭小程序再打开仍在',
+      '数据只存在内存中，关闭即丢失',
+      '可以无限制存储任意大小数据'
+    ],
+    answer: 1,
+    explanation: 'uni.setStorageSync/getStorageSync 对应小程序 Storage，持久化保存（适合存 token）；单个 key 上限 1MB、总量 10MB，不能存大数据。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '某段"调用微信支付"的代码只希望在微信小程序端编译，应使用？',
+    options: [
+      'if (platform === "weixin")',
+      '条件编译注释 // #ifdef MP-WEIXIN ... // #endif',
+      'try/catch 包裹',
+      '放到 App.vue 中即可'
+    ],
+    answer: 1,
+    explanation: '条件编译用特殊注释：// #ifdef MP-WEIXIN 到 // #endif 之间的代码只在微信小程序端保留，其他平台编译时直接剔除，template/style 中也有对应写法。'
+  },
+  {
+    type: 'choice',
+    category: 'uniapp',
+    question: '微信小程序主包体积超过 2MB 无法上传时，正确的解决方向是？',
+    options: [
+      '压缩手机存储空间',
+      '使用分包加载（subPackages），把低频页面放进分包',
+      '删除 node_modules 文件夹',
+      '换一个 AppID'
+    ],
+    answer: 1,
+    explanation: '小程序主包上限 2MB、总包 20MB。把设置页、活动页等低频页面配置到 subPackages 分包中，主包只保留首页和 tabBar 页面。'
+  },
+
+  /* ==================== 小程序 uni-app 主观题 ==================== */
+  {
+    type: 'subjective',
+    category: 'uniapp',
+    question: '请描述微信小程序中"用户登录"的完整流程，并说明：①为什么 AppSecret 不能放在前端代码里；②uni-app 中页面之间共享登录状态（token）常用什么方案。',
+    reference:
+      '微信登录流程：\n' +
+      '1. 小程序端调用 uni.login() 获取临时凭证 code（5 分钟有效）；\n' +
+      '2. 小程序把 code 发送给自己的后端服务器；\n' +
+      '3. 后端用 code + AppID + AppSecret 请求微信服务器，换取 openid（用户在该小程序的唯一标识）和 session_key；\n' +
+      '4. 后端判断 openid 是否已注册：未注册则自动建号，已注册则直接登录；然后生成自家系统的 token（如 JWT）返回给小程序；\n' +
+      '5. 小程序把 token 存入本地（uni.setStorageSync），之后所有业务请求在 header 中带上 token；\n' +
+      '6. 后端校验 token 识别用户身份；token 失效（401）时跳转登录页。\n' +
+      '①AppSecret 是小程序的服务端密钥，拥有它可以冒充该小程序调用微信接口；\n' +
+      '  前端代码（小程序包）可以被反编译/在开发者工具中查看，放入 AppSecret 等于公开密钥，\n' +
+      '  会被人盗用接口额度甚至伪造登录，因此它只能保存在后端服务器环境变量中。\n' +
+      '②共享登录状态的常用方案：token 用 uni.setStorageSync 持久化（关闭重开不丢失），\n' +
+      '  应用启动 onLaunch 时读取恢复；多页面共享响应式状态用 Pinia（store 内存放 token/userInfo，\n' +
+      '  actions 中同步读写 Storage），页面通过 useUserStore() 访问 isLogin 等状态，退出登录清空 store 与 Storage。'
   }
 ]
